@@ -2,3 +2,4 @@ MOVIE.xml中保存电影信息
 程序会在项目文件夹自动创建data和ticket文件夹
 data文件夹中保存电影场次的座位信息
 ticket文件夹中保存的为购买到的电影票
+请将该项目导入eclipse中运行
