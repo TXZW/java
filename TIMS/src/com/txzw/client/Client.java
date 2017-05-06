@@ -28,6 +28,9 @@ public class Client {
 			while (true) {
 				System.out.println("用户名称:");
 				String username = input.next();
+				if ("exit".equals(username)) {
+					return;
+				}
 				System.out.println("用户密码:");
 				String passwor = input.next();
 				// 调用登录业务,如果登陆成功调用学员管理视图
@@ -49,10 +52,10 @@ public class Client {
 			System.out.println(" 1.查看学员信息 \n 2.修改学员信息 \n 3.删除学员信息 \n 4.退出管理系统 ");
 			System.out.println("****************请选择数字1/2/3/4*****************");
 			// 接收用户输入
-			int num = input.nextInt();
+			String num = input.next();
 			// 根据用户调用客户端业务方法
 			// 显示查询结果
-			if (num == 1) {
+			if ("1".equals(num)) {
 				// 调用客户端业务查询方法,获取服务器返回信息
 				Datas datas = clientBIZ.doFind(teacher.getID());
 				// 判断服务器返回状态
@@ -72,7 +75,7 @@ public class Client {
 					System.out.println("查询失败!");
 				}
 			}
-			if (num == 2) {
+			if ("2".equals(num)) {
 				// 输入修改学员信息
 				System.out.println("要修改的学员编号");
 				int stuID = input.nextInt();
@@ -86,10 +89,12 @@ public class Client {
 					System.out.println("修改失败");
 				}
 			}
-			if (num == 3) {
+			if ("3".equals(num)) {
 				// 输入需要删除的学员编号
 				System.out.println("要删除的学员编号\n");
 				int stuID = input.nextInt();
+				// System.out.println("要删除的学员姓名\n");
+				// String stuName = input.next();
 				// 调用客户端业务的删除方法,获取服务器返回信息
 				Datas datas = clientBIZ.doDelete(stuID);
 				// 判断服务器返回状态
@@ -99,7 +104,7 @@ public class Client {
 					System.out.println("删除失败!");
 				}
 			}
-			if (num == 4) {
+			if ("4".equals(num)) {
 				return;
 			}
 		}

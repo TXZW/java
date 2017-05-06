@@ -2,8 +2,8 @@ package com.txzw.entity;
 
 import java.io.Serializable;
 
-public class Student implements Serializable {
-	private int stuID;
+public class Student implements Serializable, User {
+	private int ID;
 	private String stuName;
 	private int teacherID;
 	private int stuAge;
@@ -14,9 +14,9 @@ public class Student implements Serializable {
 
 	}
 
-	public Student(int stuID, String stuName, int teacherID, int stuAge, int stuSex, String comments) {
+	public Student(int ID, String stuName, int teacherID, int stuAge, int stuSex, String comments) {
 		super();
-		this.stuID = stuID;
+		this.ID = ID;
 		this.stuName = stuName;
 		this.teacherID = teacherID;
 		this.stuAge = stuAge;
@@ -25,11 +25,11 @@ public class Student implements Serializable {
 	}
 
 	public int getStuID() {
-		return stuID;
+		return ID;
 	}
 
 	public void setStuID(int stuID) {
-		this.stuID = stuID;
+		this.ID = stuID;
 	}
 
 	public String getStuName() {

@@ -2,7 +2,7 @@ package com.txzw.entity;
 
 import java.io.Serializable;
 
-public class Teacher implements Serializable {
+public class Teacher implements Serializable, User {
 	private int ID;
 	private String username;
 	private String password;

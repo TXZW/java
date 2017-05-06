@@ -13,8 +13,11 @@ import com.txzw.util.Datas;
 import com.txzw.util.SysConstants;
 import com.txzw.util.Tools;
 
+import DAO.user.createDB;
+
 public class ServerContextListener extends Thread {
 	public static void main(String[] args) {
+		new createDB().create();
 		// 启动服务线程
 		new ServerContextListener().start();
 	}
@@ -26,6 +29,7 @@ public class ServerContextListener extends Thread {
 		Socket socket = null;
 		ObjectInputStream ois = null;
 		ObjectOutputStream oos = null;
+		int i = 0;
 		try {
 			serverSocket = new ServerSocket(Integer.parseInt(Tools.getValue(SysConstants.SYS_LISTENERPORT)));
 			while (true) {
@@ -55,16 +59,23 @@ public class ServerContextListener extends Thread {
 					int teacherID = datas.getTeacher().getID();
 					List<Student> studentList = serverService.findStudentByTeacher(teacherID);
 					datas.setStudentList(studentList);
+					oos.writeObject(datas);
 				}
 				if (datas.getFlag().equals(SysConstants.SYS_UPDATE)) {
 					// 修改
 					Student student = datas.getStudent();
-					serverService.updateStudent(student);
+					i = serverService.updateStudent(student);
+					if (i != 1) {
+						datas.setFlag(SysConstants.SYS_ERROR);
+					}
 				}
 				if (datas.getFlag().equals(SysConstants.SYS_DELETE)) {
 					// 删除
-					int stuID = datas.getStudent().getStuID();
-					serverService.deleteStudent(stuID);
+					Student s = datas.getStudent();
+					i = serverService.deleteStudent(s);
+					if (i != 1) {
+						datas.setFlag(SysConstants.SYS_ERROR);
+					}
 				}
 				oos.writeObject(datas);
 				oos.flush();
@@ -74,6 +85,9 @@ public class ServerContextListener extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
