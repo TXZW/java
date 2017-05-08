@@ -12,6 +12,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+table, td {
+	margin: 0px auto;
+	border: 1px solid #000;
+}
+p {
+	margin: 0px auto;
+	text-align: center;
+}
+</style>
 <script type="text/javascript">
 	function deletee(b) {
 		var thisTr = b.parentNode.parentNode;
@@ -56,17 +66,26 @@
 
 	}
 </script>
-<style type="text/css">
-table, td {
-	margin: 0px auto;
-	border: 1px solid #000;
-}
-</style>
+
 </head>
 
 <body>
-	<%!List<Student> studentList = null;%>
+	<%!List<Student> studentList = null;
+	public static final int PAGESIZE = 10;
+	int pageCount = 0;
+	int Page = 1;
+	%>
 	<%
+	 String tmp = request.getParameter("Page");  
+    if(tmp==null){  
+        tmp="1";  
+    }  
+    Page = Integer.parseInt(tmp);
+    if(Page>pageCount){
+    	Page=pageCount;
+    }else if(Page==0){
+    	Page = 1;
+    }
 		ClientBIZ clientBIZ = (ClientBIZ) session.getAttribute("clientBIZ");
 		Teacher teacher = (Teacher) session.getAttribute("teacher");
 		if (null != clientBIZ) {
@@ -89,20 +108,47 @@ table, td {
 			<th>操作</th>
 		</tr>
 		<%
-			for (Student student : studentList) {
-						out.println("<tr><td>" + student.getStuID() + "</td><td>" + student.getStuName() + "</td><td>"
-								+ student.getStuAge() + "</td><td>" + (student.getStuSex() == 1 ? "男" : "女")
-								+ "</td><td>" + teacher.getNickname() + "</td><td>" + student.getComments()
-								+ "</td><td><button onclick='upp(this)'>修改评语</button>&emsp;<button onclick='deletee(this)'>删除</button></td></tr>");
+			int row = studentList.size();
+					
+					if (row % 10 == 0) {
+						pageCount = row / 10;
+					} else {
+						pageCount = row / 10 + 1;
+					}
+					if (pageCount == 1) {
+						for (Student student : studentList) {
+							out.println("<tr><td>" + student.getStuID() + "</td><td>" + student.getStuName()
+									+ "</td><td>" + student.getStuAge() + "</td><td>"
+									+ (student.getStuSex() == 1 ? "男" : "女") + "</td><td>" + teacher.getNickname()
+									+ "</td><td>" + student.getComments()
+									+ "</td><td><button onclick='upp(this)'>修改评语</button>&emsp;<button onclick='deletee(this)'>删除</button></td></tr>");
+						}
+					} else {
+						for (int i = PAGESIZE * (Page - 1); i < PAGESIZE * (Page)&&i<row; i++) {
+							if(null!=studentList.get(i)){
+								out.println("<tr><td>" + studentList.get(i).getStuID() + "</td><td>"
+										+ studentList.get(i).getStuName() + "</td><td>" + studentList.get(i).getStuAge()
+										+ "</td><td>" + (studentList.get(i).getStuSex() == 1 ? "男" : "女") + "</td><td>"
+										+ teacher.getNickname() + "</td><td>" + studentList.get(i).getComments()
+										+ "</td><td><button onclick='upp(this)'>修改评语</button>&emsp;<button onclick='deletee(this)'>删除</button></td></tr>");
+							}
+						}
 					}
 		%>
 	</table>
+	<p>
+	<a href="student.jsp?Page=1">首页</a>
+	<a href="student.jsp?Page=<%=Page - 1%>">上一页</a>
+	<a href="student.jsp?Page=<%=Page + 1%>">下一页</a>
+	<a href="student.jsp?Page=<%=pageCount%>">尾页</a> 第<%=Page%>页/共<%=pageCount%>页
+	</p>
 	<%
 		} else {
 				out.println("查询失败!");
 			}
 		}
 	%>
+
 	<form action="student.jsp" method="post" id="myForm">
 		<input type="hidden" name="id" id="id" value="" /> <input
 			type="hidden" name="flag" id="flag" value="" /> <input type="hidden"
@@ -132,7 +178,7 @@ table, td {
 </body>
 
 </html>
-	<%
+<%
 	if (null == session.getAttribute("adminName")) {
 		response.sendRedirect("login.jsp");
 	}
