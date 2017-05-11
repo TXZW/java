@@ -17,6 +17,7 @@ table, td {
 	margin: 0px auto;
 	border: 1px solid #000;
 }
+
 p {
 	margin: 0px auto;
 	text-align: center;
@@ -73,28 +74,28 @@ p {
 	<%!List<Student> studentList = null;
 	public static final int PAGESIZE = 10;
 	int pageCount = 0;
-	int Page = 1;
-	%>
+	int Page = 1;%>
 	<%
-	 String tmp = request.getParameter("Page");  
-    if(tmp==null){  
-        tmp="1";  
-    }  
-    Page = Integer.parseInt(tmp);
-    if(Page>pageCount){
-    	Page=pageCount;
-    }else if(Page==0){
-    	Page = 1;
-    }
+		String tmp = request.getParameter("Page");
+		if (tmp == null) {
+			tmp = "1";
+		}
+		Page = Integer.parseInt(tmp);
 		ClientBIZ clientBIZ = (ClientBIZ) session.getAttribute("clientBIZ");
 		Teacher teacher = (Teacher) session.getAttribute("teacher");
 		if (null != clientBIZ) {
 			// 调用客户端业务查询方法,获取服务器返回信息
 			Datas datas = clientBIZ.doFind(teacher.getID());
+			pageCount = datas.getPageCount(PAGESIZE);
+			if (Page > pageCount) {
+				Page = pageCount;
+			} else if (Page == 0) {
+				Page = 1;
+			}
 			// 判断服务器返回状态
 			if (SysConstants.SYS_FIND.equals(datas.getFlag())) {
 				// 获取学员集合
-				List<Student> studentList = datas.getStudentList();
+				List<Student> studentList = datas.getStudentList(Page);
 				// 输出显示
 	%>
 	<table cellpadding="5px" cellspacing="5px">
@@ -108,39 +109,20 @@ p {
 			<th>操作</th>
 		</tr>
 		<%
-			int row = studentList.size();
-					
-					if (row % 10 == 0) {
-						pageCount = row / 10;
-					} else {
-						pageCount = row / 10 + 1;
+			for (Student student : studentList) {
+						out.println("<tr><td>" + student.getStuID() + "</td><td>" + student.getStuName() + "</td><td>"
+								+ student.getStuAge() + "</td><td>" + (student.getStuSex() == 1 ? "男" : "女")
+								+ "</td><td>" + teacher.getNickname() + "</td><td>" + student.getComments()
+								+ "</td><td><button onclick='upp(this)'>修改评语</button>&emsp;<button onclick='deletee(this)'>删除</button></td></tr>");
 					}
-					if (pageCount == 1) {
-						for (Student student : studentList) {
-							out.println("<tr><td>" + student.getStuID() + "</td><td>" + student.getStuName()
-									+ "</td><td>" + student.getStuAge() + "</td><td>"
-									+ (student.getStuSex() == 1 ? "男" : "女") + "</td><td>" + teacher.getNickname()
-									+ "</td><td>" + student.getComments()
-									+ "</td><td><button onclick='upp(this)'>修改评语</button>&emsp;<button onclick='deletee(this)'>删除</button></td></tr>");
-						}
-					} else {
-						for (int i = PAGESIZE * (Page - 1); i < PAGESIZE * (Page)&&i<row; i++) {
-							if(null!=studentList.get(i)){
-								out.println("<tr><td>" + studentList.get(i).getStuID() + "</td><td>"
-										+ studentList.get(i).getStuName() + "</td><td>" + studentList.get(i).getStuAge()
-										+ "</td><td>" + (studentList.get(i).getStuSex() == 1 ? "男" : "女") + "</td><td>"
-										+ teacher.getNickname() + "</td><td>" + studentList.get(i).getComments()
-										+ "</td><td><button onclick='upp(this)'>修改评语</button>&emsp;<button onclick='deletee(this)'>删除</button></td></tr>");
-							}
-						}
-					}
+		session.setAttribute("clientBIZ", clientBIZ);
 		%>
 	</table>
 	<p>
-	<a href="student.jsp?Page=1">首页</a>
-	<a href="student.jsp?Page=<%=Page - 1%>">上一页</a>
-	<a href="student.jsp?Page=<%=Page + 1%>">下一页</a>
-	<a href="student.jsp?Page=<%=pageCount%>">尾页</a> 第<%=Page%>页/共<%=pageCount%>页
+		<a href="student.jsp?Page=1">首页</a> <a
+			href="student.jsp?Page=<%=Page - 1%>">上一页</a> <a
+			href="student.jsp?Page=<%=Page + 1%>">下一页</a> <a
+			href="student.jsp?Page=<%=pageCount%>">尾页</a> 第<%=Page%>页/共<%=pageCount%>页
 	</p>
 	<%
 		} else {

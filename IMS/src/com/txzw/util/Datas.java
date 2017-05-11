@@ -4,6 +4,7 @@ package com.txzw.util;
  */
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.txzw.entity.Student;
@@ -18,6 +19,7 @@ public class Datas implements Serializable {
 	private Teacher teacher;
 	private Student student;
 	private List<Student> studentList;
+	private int pageSize;
 
 	public String getFlag() {
 		return flag;
@@ -43,8 +45,30 @@ public class Datas implements Serializable {
 		this.student = student;
 	}
 
-	public List<Student> getStudentList() {
-		return studentList;
+	public List<Student> getStudentList(int page) {
+		int row = studentList.size();
+		List<Student> stl = new ArrayList<Student>();
+
+		for (int i = pageSize * (page - 1); i < pageSize * (page) && i < row; i++) {
+			if (null != studentList.get(i)) {
+				stl.add(studentList.get(i));
+			}
+		}
+
+		return stl;
+
+	}
+
+	public int getPageCount(int pageSize) {
+		int row = studentList.size();
+		this.pageSize = pageSize;
+		int pageCount = 1;
+		if (row % pageSize == 0) {
+			pageCount = row / pageSize;
+		} else {
+			pageCount = row / pageSize + 1;
+		}
+		return pageCount;
 	}
 
 	public void setStudentList(List<Student> studentList) {
