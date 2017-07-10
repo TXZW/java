@@ -7,71 +7,34 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <c:choose>
-<c:when test="${sessionScope.adminName!=null}">
-<c:set var="admin" value="${sessionScope.adminName},你好"/>
-<c:set var="title" value="${sessionScope.adminName},欢迎使用学生信息管理系统"/>
-</c:when>
-<c:otherwise>
-<c:redirect url="login.jsp" />
-</c:otherwise>
+	<c:when test="${sessionScope.adminName!=null}">
+		<c:set var="admin" value="${sessionScope.adminName},你好" />
+		<c:set var="title" value="${sessionScope.adminName},欢迎使用学生信息管理系统" />
+	</c:when>
+	<c:otherwise>
+		<c:redirect url="login.jsp" />
+	</c:otherwise>
 </c:choose>
 <title>${title}</title>
+<link rel="stylesheet"
+	href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" />
+<script
+	src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"
+	type="text/javascript"></script>
+<script
+	src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"
+	type="text/javascript"></script>
 <script type="text/javascript">
-	function exit() {
-		if (confirm("是否注销账户?")) {
-			location.href = "Logout";
-		}
-	}
+	$(function() {
+		$("#exit").click(function() {
+			if (confirm("是否注销账户?")) {
+				location.href = "Logout";
+			}
+		});
+	});
 </script>
-<style type="text/css">
-* {
-	margin: 0px;
-	padding: 0px;
-}
-
-html, body {
-	height: 100%;
-	/* overflow: hidden; */
-}
-
-p, h1 {
-	text-align: center;
-	margin: 0px auto;
-}
-
-div {
-	border: 1px solid #000;
-}
-
-div#top {
-	height: 100px;
-	width: 99.9%;
-}
-
-div#left {
-	height: 100%;
-	border-top: none;
-	width: 10%;
-	display: inline-block;
-	float: left;
-}
-
-div#right {
-	height: 100%;
-	width: 89.8%;
-	border-top: none;
-	border-left: none;
-	display: inline-block;
-}
-
-iframe {
-	width: 100%;
-	height: 100%;
-}
-</style>
-</head>
 <body>
-<%-- <%!String admin = null;
+	<%-- <%!String admin = null;
 	String title = null;
 	String name = null;%>
 <%
@@ -85,20 +48,9 @@ iframe {
 		response.sendRedirect("login.jsp");
 	}
 %> --%>
-	<div id="top">
-		<h1>欢迎使用学生信息管理系统</h1>
-
-		<span>${admin}</span>
-		<button type="button" onclick="exit()">注销</button>
-	</div>
-	<div id="left">
-		<p>
-			<a href="StuServlet" target="rightOP">管理学生</a>
-		</p>
-	</div>
-	<div id="right">
-		<iframe name="rightOP" src="right.jsp"></iframe>
-	</div>
+	<%@ include file="head.html"%>
+	<div class="pull-right col-xs-11 text-center" style="height: 80%;">
+		${sessionScope.adminName},欢迎使用学生信息管理系统</div>
 
 
 </body>

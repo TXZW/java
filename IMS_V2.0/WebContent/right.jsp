@@ -10,27 +10,26 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-table {
-	margin: 0px auto;
-	border: 1px solid #000;
-}
-
-td {
-	margin: 0px auto;
-	border: 1px solid #000;
-	text-align: center;
-}
-
-p {
-	margin: 0px auto;
-	text-align: center;
-}
-</style>
+<link rel="stylesheet"
+	href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" />
+<script
+	src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"
+	type="text/javascript"></script>
+<script
+	src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"
+	type="text/javascript"></script>
 <script type="text/javascript">
 	function check() {
-		var page = ${Page};
-		var pageCount = ${pageCount};
+		var page = $
+		{
+			Page
+		}
+		;
+		var pageCount = $
+		{
+			pageCount
+		}
+		;
 		if (page == pageCount) {
 			document.getElementById("首页").disabled = false;
 			document.getElementById("上一页").disabled = false;
@@ -61,12 +60,16 @@ p {
 		//thisTr.childNodes.item(1).innerHTML = "<input type='text' value='" + thisTr.childNodes.item(1).textContent + "'>";
 		thisTr.childNodes.item(5).innerHTML = "<input type='text' value='"
 				+ thisTr.childNodes.item(5).innerText + "'>";
-		thisTr.childNodes.item(6).innerHTML = "<button onclick='confirm(this)'>确定</button>&emsp;<button onclick='cancell(this)'>取消</button>";
+		thisTr.childNodes.item(6).innerHTML = "<button class='btn btn-default' onclick='confirm(this)'>确定</button>&emsp;<button class='btn btn-default' onclick='cancell(this)'>取消</button>";
 	}
-	function cancell(a) {
+	/* function cancell(a) {
 		var thisTr = a.parentNode.parentNode;
 		thisTr.childNodes.item(5).innerHTML = thisTr.childNodes.item(5).value;
-		thisTr.childNodes.item(6).innerHTML = "<button onclick='upp(this)'>修改评语</button>&emsp;<button onclick='deletee(this)'>删除</button>";
+		thisTr.childNodes.item(6).innerHTML = "<button class='btn btn-default' onclick='upp(this)'>修改评语</button>&emsp;<button class='btn btn-default' onclick='deletee(this)'>删除</button>";
+	} */
+	function cancell(a) {
+			window.location.replace("StuServlet")
+		
 	}
 
 	function confirm(a) {
@@ -91,46 +94,55 @@ p {
 		</c:if>
 	</c:if>
 	<c:if test="${studentList!=null}">
-	<input type="hidden" id="page" value="${Page}" />
-<input type="hidden" id="pageCount" value="${pageCount}" />
-	<table cellpadding="5px" cellspacing="5px">
-		<tr>
-			<th>编号</th>
-			<th>学生姓名</th>
-			<th>年龄</th>
-			<th>性别</th>
-			<th>班主任</th>
-			<th>评语</th>
-			<th>操作</th>
-		</tr>
-		<%
-		List<Student> studentList=(List<Student>) request.getAttribute("studentList");
-		Teacher teacher=(Teacher)session.getAttribute("teacher");
-			for (Student student : studentList) {
-						out.println("<tr><td>" + student.getStuID() + "</td><td>" + student.getStuName() + "</td><td>"
-								+ student.getStuAge() + "</td><td>" + (student.getStuSex() == 1 ? "男" : "女")
-								+ "</td><td>" + teacher.getNickname() + "</td><td>" + student.getComments()
-								+ "</td><td><button onclick='upp(this)'>修改评语</button>&emsp;<button onclick='deletee(this)'>删除</button></td></tr>");
-					}
-		%>
-		<td colspan="7"> 
-		<button type="button" id="首页" onclick="window.location.href='${sessionScope.project}/StuServlet?Page=1'">首页</button>
-		<button type="button" id="上一页" onclick="window.location.href='${sessionScope.project}/StuServlet?Page=${Page-1}'">上一页</button>
-		<button type="button" id="下一页" onclick="window.location.href='${sessionScope.project}/StuServlet?Page=${Page+1}'">下一页</button>
-		<button type="button" id="尾页" onclick="window.location.href='${sessionScope.project}/StuServlet?Page=${pageCount}'">尾页</button>
-		<%-- <a href="student.jsp?Page=1">首页</a>
+		<input type="hidden" id="page" value="${Page}" />
+		<input type="hidden" id="pageCount" value="${pageCount}" />
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>编号</th>
+					<th>学生姓名</th>
+					<th>年龄</th>
+					<th>性别</th>
+					<th>班主任</th>
+					<th>评语</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%
+					List<Student> studentList = (List<Student>) request.getAttribute("studentList");
+						Teacher teacher = (Teacher) session.getAttribute("teacher");
+						for (Student student : studentList) {
+							out.println("<tr><td>" + student.getStuID() + "</td><td>" + student.getStuName() + "</td><td>"
+									+ student.getStuAge() + "</td><td>" + (student.getStuSex() == 1 ? "男" : "女") + "</td><td>"
+									+ teacher.getNickname() + "</td><td>" + student.getComments()
+									+ "</td><td><button class='btn btn-default' onclick='upp(this)'>修改评语</button>&emsp;<button class='btn btn-default' onclick='deletee(this)'>删除</button></td></tr>");
+						}
+				%>
+				<td colspan="7">
+					<button class="btn btn-default" type="button" id="首页"
+						onclick="window.location.href='${sessionScope.project}/StuServlet?Page=1'">首页</button>
+					<button class="btn btn-default" type="button" id="上一页"
+						onclick="window.location.href='${sessionScope.project}/StuServlet?Page=${Page-1}'">上一页</button>
+					<button class="btn btn-default" type="button" id="下一页"
+						onclick="window.location.href='${sessionScope.project}/StuServlet?Page=${Page+1}'">下一页</button>
+					<button class="btn btn-default" type="button" id="尾页"
+						onclick="window.location.href='${sessionScope.project}/StuServlet?Page=${pageCount}'">尾页</button>
+					<%-- <a href="student.jsp?Page=1">首页</a>
 		<a	href="student.jsp?Page=<%=Page - 1%>">上一页</a> 
 		<a	href="student.jsp?Page=<%=Page + 1%>">下一页</a> 
 		<a	href="student.jsp?Page=<%=pageCount%>">尾页</a>  --%>
-		<p>第${Page}页/共${pageCount}页</p>
-		</td>
-	</table>
+					<p>第${Page}页/共${pageCount}页</p>
+				</td>
+			</tbody>
+		</table>
 
-	<form action="${sessionScope.project}/Manager" method="post" id="myForm">
-		<input type="hidden" name="id" id="id" value="" /> <input
-			type="hidden" name="flag" id="flag" value="" /> <input type="hidden"
-			name="comment" id="comment" value="" />
-	</form>
+		<form action="${sessionScope.project}/Manager" method="post"
+			id="myForm">
+			<input type="hidden" name="id" id="id" value="" /> <input
+				type="hidden" name="flag" id="flag" value="" /> <input
+				type="hidden" name="comment" id="comment" value="" />
+		</form>
 	</c:if>
 </body>
 </html>

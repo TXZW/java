@@ -1,0 +1,44 @@
+
+<nav class="navbar navbar-default" role="navigation">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="index.jsp">快来看电影</a>
+		</div>
+		<ul class="nav navbar-nav navbar-right">
+			<li class="login"><a href="#"><span
+					class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+			<li class="login"><a href="#"><span
+					class="glyphicon glyphicon-user"></span> 注册</a></li>
+			<li class="dropdown"><a href="#" class="dropdown-toggle"
+				data-toggle="dropdown"> ${username} <b class="caret"></b>
+			</a>
+				<ul class="dropdown-menu">
+					<li><a href="#">个人中心</a></li>
+					<li><a href="#">账号设置</a></li>
+					<li class="divider"></li>
+					<li><a href="#">历史订单</a></li>
+					<li class="divider"></li>
+					<li><a href="#">安全退出</a></li>
+				</ul></li>
+		</ul>
+		<form class="navbar-form navbar-right" role="search" method="post"
+			action="/SaleTicketSystem_V2/serach">
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="请输入电影名称..."
+					name="name">
+			</div>
+			<button type="submit" class="btn btn-default">搜索</button>
+		</form>
+
+
+	</div>
+	<!-- <div>
+				<ul class="nav navbar-nav">
+					<li><a href="#">A</a></li>
+					<li><a href="#">B</a></li>
+				</ul>
+			</div> -->
+
+
+
+</nav>
