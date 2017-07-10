@@ -6,30 +6,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>学生信息管理系统</title>
-<style type="text/css">
-* {
-	margin: 0px;
-	padding: 0px;
-}
-
-div {
-	margin: 0px auto;
-	width: 300px;
-}
-
-table {
-	margin: 0px auto;
-}
-
-p {
-	margin: 0px auto;
-	color: red;
-	text-align: center;
-}
-
-input {
-	width: 150px;
-}
+<link rel="stylesheet"
+	href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" />
+<script
+	src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"
+	type="text/javascript"></script>
+<script
+	src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"
+	type="text/javascript"></script>
 </style>
 <script language="javascript">
 	function custom_close() {
@@ -45,8 +29,10 @@ input {
 	<div>
 		<h2 style="text-align: center;">欢迎使用学生信息管理系统</h2>
 		<c:if test="${sessionScope.message!=null}">
-		<p>${sessionScope.message}</p>
-		<%session.invalidate(); %>
+			<p>${sessionScope.message}</p>
+			<%
+				session.invalidate();
+			%>
 		</c:if>
 		<%-- <%
 			Object msg = request.getAttribute("message");
@@ -54,25 +40,23 @@ input {
 				out.println("<p>" + msg.toString() + "</p>");
 			}
 		%> --%>
-		
-		<form action="${sessionScope.project }/Login" method="post">
-			<table>
-				<tr>
-					<td style="text-align: right;"><label for="username">用户名:</label></td>
-					<td><input type="text" name="username" id="username" value=""></td>
-				</tr>
-				<tr>
-					<td style="text-align: right;"><label for="password">密&emsp;码:</label></td>
-					<td><input type="password" name="password" id="password"
-						value=""></td>
-				</tr>
-				<tr>
-					<td style="text-align: center;" colspan="2"><button
-							type="submit">登录</button>
-						<button type="button" onclick="custom_close()">关闭</button></td>
-				</tr>
-			</table>
-		</form>
+		<div style="padding: 100px 100px 10px;width: 500px;" class="center-block">
+			<form action="${sessionScope.project }/Login" method="post"
+				class="bs-example bs-example-form text-center" role="form">
+
+				<div class="input-group">
+					<span class="input-group-addon">用户名:</span> <input type="text"
+						name="username" id="username" class="form-control" value="">
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon">用户名:</span> <input type="password"
+						name="password" id="password" class="form-control" value="">
+				</div>
+				<button class="btn btn-default" type="submit">登录</button>
+				<button class="btn btn-default" type="button"
+					onclick="custom_close()">关闭</button>
+			</form>
+		</div>
 	</div>
 </body>
 </html>

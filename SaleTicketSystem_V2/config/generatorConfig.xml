@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<context id="context1">
+		<commentGenerator>
+			<property name="javaFileEncoding" value="UTF-8" />
+			<property name="suppressDate" value="true" />
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<jdbcConnection connectionURL="jdbc:mysql://localhost:3306/cinema"
+			driverClass="com.mysql.jdbc.Driver" password="123456" userId="root" />
+		<!-- java模型创建器，是必须要的元素 负责：1，key类（见context的defaultModelType）；2，java类；3，查询类 
+			targetPackage：生成的类要放的包，真实的包受enableSubPackages属性控制； targetProject：目标项目，指定一个存在的目录下，生成的内容会放到指定目录中，如果目录不存在，MBG不会自动建目录 -->
+		<javaModelGenerator targetPackage="com.txzw.po"
+			targetProject="SaleTicketSystem_V2/src" />
+		<!-- 生成SQL map的XML文件生成器， 注意，在Mybatis3之后，我们可以使用mapper.xml文件+Mapper接口（或者不用mapper接口）， 
+			或者只使用Mapper接口+Annotation，所以，如果 javaClientGenerator配置中配置了需要生成XML的话，这个元素就必须配置 
+			targetPackage/targetProject:同javaModelGenerator -->
+		<sqlMapGenerator targetPackage="com.txzw.po"
+			targetProject="SaleTicketSystem_V2/src" />
+		<!-- 对于mybatis来说，即生成Mapper接口，注意，如果没有配置该元素，那么默认不会生成Mapper接口 targetPackage/targetProject:同javaModelGenerator 
+			type：选择怎么生成mapper接口（在MyBatis3/MyBatis3Simple下）： 1，ANNOTATEDMAPPER：会生成使用Mapper接口+Annotation的方式创建（SQL生成在annotation中），不会生成对应的XML； 
+			2，MIXEDMAPPER：使用混合配置，会生成Mapper接口，并适当添加合适的Annotation，但是XML会生成在XML中； 3，XMLMAPPER：会生成Mapper接口，接口完全依赖XML； 
+			注意，如果context是MyBatis3Simple：只支持ANNOTATEDMAPPER和XMLMAPPER -->
+		<javaClientGenerator targetPackage="com.txzw.mapper"
+			targetProject="SaleTicketSystem_V2/src" type="ANNOTATEDMAPPER" />
+		<table tableName="Movie" domainObjectName="Movie"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<columnOverride column="电影名称" property="filmName" />
+			<columnOverride column="英文名称" property="englishName" />
+			<columnOverride column="导演" property="director" />
+			<columnOverride column="主要演员" property="star" />
+			<columnOverride column="类型" property="type" />
+			<columnOverride column="价格" property="price" />
+			<columnOverride column="时间" property="time" />
+
+		</table>
+		<table tableName="Seat" domainObjectName="Seat"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false" />
+
+	</context>
+</generatorConfiguration>

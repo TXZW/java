@@ -69,7 +69,7 @@ public class StuServlet extends HttpServlet {
 		request.setAttribute("studentList", stl);
 		request.setAttribute("Page", Page);
 		request.setAttribute("pageCount", pageCount);
-		request.getRequestDispatcher("right.jsp").forward(request, response);
+		request.getRequestDispatcher("student.jsp").forward(request, response);
 	}
 
 	/**
