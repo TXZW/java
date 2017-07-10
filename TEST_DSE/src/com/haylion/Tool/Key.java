@@ -1,0 +1,5 @@
+package com.haylion.Tool;
+
+public enum Key {
+	DIRVER, URL, USERNAME, PASSWORD, PORT, REDIS_PASSWORD, REDIS_HOST, REDIS_PORT, REDIS_TIMEOUT
+}

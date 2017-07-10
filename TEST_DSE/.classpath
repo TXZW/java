@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="config"/>
+	<classpathentry kind="lib" path="D:/TDDOWNLOAD/jedis-2.9.0.jar" sourcepath="D:/Documents/apache-maven-3.5.0/.m2/redis/clients/jedis/2.9.0/jedis-2.9.0-sources.jar"/>
+	<classpathentry kind="lib" path="D:/TDDOWNLOAD/commons-pool2-2.4.2.jar" sourcepath="D:/Documents/apache-maven-3.5.0/.m2/org/apache/commons/commons-pool2/2.4.2/commons-pool2-2.4.2-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Documents/mybatis-3.4.4/MyBatis 3.4.4/mybatis-3.4.4/mybatis-3.4.4.jar"/>
+	<classpathentry kind="lib" path="D:/Documents/mysql-connector-java-5.1.41/mysql-connector-java-5.1.41-bin.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

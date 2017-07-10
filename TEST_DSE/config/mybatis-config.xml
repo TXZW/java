@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 引入外部配置文件 -->
+	<properties resource="db.properties"></properties>
+	<!-- Mybatis设置 -->
+	<!-- <settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings> -->
+	<!-- 简化设置 -->
+	<typeAliases>
+		<package name="com.haylion.po" />
+	</typeAliases>
+	<!-- 环境设置 -->
+	<environments default="mysql">
+		<environment id="mysql">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${DRIVER}" />
+				<property name="url" value="${URL}" />
+				<property name="username" value="${USERNAME}" />
+				<property name="password" value="${PASSWORD}" />
+			</dataSource>
+		</environment>
+	<!-- <environment id="oracle"> <transactionManager type="JDBC" /> <dataSource 
+		type="POOLED"> <property name="driver" value="oracle.jdbc.driver.OracleDriver" 
+		/> <property name="url" value="jdbc:oracle:thin:@localhost:1521:ORCL" /> 
+		<property name="username" value="c##scott" /> <property name="password" value="123" 
+		/> </dataSource> </environment> -->
+	</environments>
+	<!-- 映射文件 -->
+	<mappers>
+		<mapper class="com.haylion.po.CarDataMapper" />
+		<mapper class="com.haylion.po.CarPassengersMapper" />
+		<mapper class="com.haylion.po.CarStateMapper" />
+		<mapper class="com.haylion.po.LogonResponseMapper" />
+		<mapper class="com.haylion.po.OBDAgreementMapper" />
+		<mapper class="com.haylion.po.testMapper" />
+		<mapper class="com.haylion.po.VersionInformationMapper" />
+	</mappers>
+</configuration>
